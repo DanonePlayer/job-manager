@@ -16,7 +16,6 @@ const JobListPage = () => {
                     }
                 });
 
-                // Verifique se response.data.jobs é um array
                 if (Array.isArray(response.data.jobs)) {
                     setJobs(response.data.jobs);
                 } else {
@@ -32,7 +31,7 @@ const JobListPage = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate("/login");
+        navigate("/");
         toast.success("Logout successful!");
     };
 

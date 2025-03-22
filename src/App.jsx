@@ -1,21 +1,27 @@
-import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import LoginPage from './pages/LoginPage'
-import JobListPage from './pages/JobListPage'
-import JobFormPage from './pages/JobFormPage'
-function App() {
+import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import JobListPage from './pages/JobListPage';
+import JobFormPage from './pages/JobFormPage';
+import PrivateRoute from './components/PrivateRoute';
 
-  return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/jobs" element={<JobListPage />} />
-          <Route path="/jobs/new" element={<JobFormPage />} />      
-        </Routes>
-      </Router>
-    </>
-  )
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LoginPage />,
+  },
+  {
+    path: "/jobs",
+    element: <PrivateRoute element={JobListPage} />,
+  },
+  {
+    path: "/jobs/new",
+    element: <PrivateRoute element={JobFormPage} />,
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
