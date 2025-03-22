@@ -26,7 +26,7 @@ const JobFormPage = () => {
         location,
         remote,
         link,
-        salary: Number(salary),
+        salary: Number(salary) || 0,
         };
 
         try{
@@ -44,8 +44,10 @@ const JobFormPage = () => {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log('Vaga cadastrada com sucesso:', response.data);
-            alert('Vaga cadastrada com sucesso!');
+            if (response.data.message) {
+                console.log('Vaga cadastrada com sucesso:', response.data);
+                alert('Vaga cadastrada com sucesso!');
+            }
 
             setRole("");
             setCompany("");

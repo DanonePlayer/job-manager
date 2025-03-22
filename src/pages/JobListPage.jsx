@@ -10,14 +10,13 @@ const JobListPage = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await axios.get('/api/jobs', {
+                const response = await axios.get('https://openingteste.mpac.mp.br/api/v1/openings', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-
-                if (Array.isArray(response.data.jobs)) {
-                    setJobs(response.data.jobs);
+                if (Array.isArray(response.data.message)) {
+                    setJobs(response.data.message);
                 } else {
                     toast.error("Erro: Estrutura de dados inválida");
                 }
