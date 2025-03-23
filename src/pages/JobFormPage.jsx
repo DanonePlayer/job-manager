@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createJob } from '../services/jobService';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const JobFormPage = () => {
@@ -60,6 +60,7 @@ const JobFormPage = () => {
         <input type="number" placeholder="Salário" value={salary} onChange={(e) => setSalary(e.target.value)} />
         <button type="submit" className="btn-add-job" disabled={loading}>{loading ? 'Cadastrando...' : 'Cadastrar Vaga'}</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

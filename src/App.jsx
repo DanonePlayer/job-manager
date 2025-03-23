@@ -6,7 +6,7 @@ import JobFormPage from './pages/JobFormPage';
 import JobDetailPage from './pages/JobDetailPage';
 import JobEditPage from './pages/JobEditPage';
 import PrivateRoute from './components/PrivateRoute';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (<RouterProvider router={router} />);
 }
 
 export default App;
