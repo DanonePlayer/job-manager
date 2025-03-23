@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { createJob } from '../services/jobService';
 
 const JobFormPage = () => {
   const [role, setRole] = useState("");
@@ -33,22 +33,17 @@ const JobFormPage = () => {
             setLoading(true);
             setError(null);
             const token = localStorage.getItem('token');
+            
             if (!token) {
                 setError('Você precisa estar logado para cadastrar uma vaga.');
                 return;
-
             }
-            const response = await axios.post('https://openingteste.mpac.mp.br/api/v1/opening', jobData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (response.data.message) {
-                console.log('Vaga cadastrada com sucesso:', response.data);
+
+            const response = await createJob(jobData, token);
+            if(response.message) {
                 alert('Vaga cadastrada com sucesso!');
             }
-
+            
             setRole("");
             setCompany("");
             setLocation("");

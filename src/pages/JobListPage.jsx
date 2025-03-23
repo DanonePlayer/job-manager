@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { getJobs } from "../services/jobService";
 
 const JobListPage = () => {
     const [jobs, setJobs] = useState([]);
@@ -10,15 +10,18 @@ const JobListPage = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await axios.get('https://openingteste.mpac.mp.br/api/v1/openings', {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                if (Array.isArray(response.data.message)) {
-                    setJobs(response.data.message);
-                } else {
-                    toast.error("Erro: Estrutura de dados inválida");
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    toast.error("Token não encontrado. Faça login novamente.");
+                    navigate("/");
+                    return;
+                }
+                const response = await getJobs(token);
+                if(Array.isArray(response.message)) {
+                    setJobs(response.message);
+                }
+                else {
+                    toast.error("Erro ao carregar as vagas. Tente novamente mais tarde.");
                 }
             } catch (error) {
                 toast.error("Erro ao carregar as vagas");

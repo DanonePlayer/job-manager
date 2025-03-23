@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import { getJobDetails } from "../services/jobService";
 
 const JobDetailPage = () => {
     const [job, setJob] = useState(null);
@@ -10,18 +10,15 @@ const JobDetailPage = () => {
     useEffect(() => {
         const fetchJobDetails = async () => {
             try {
-                const response = await axios.get('https://openingteste.mpac.mp.br/api/v1/openings', {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-
-                const foundJob = response.data.message.find((job) => job.id === Number(jobId));
-                console.log("Vaga encontrada:", foundJob);
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    navigate("/");
+                    return;
+                }
+                const foundJob = await getJobDetails(jobId, token);
                 if (foundJob) {
                     setJob(foundJob);
                 } else {
-                    console.error("Erro: Vaga não encontrada.", response.data);
                     navigate("/jobs");
                 }
             } catch (error) {

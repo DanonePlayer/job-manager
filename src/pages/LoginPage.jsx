@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { login } from "../services/authService";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -21,9 +21,9 @@ const LoginPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post('https://openingteste.mpac.mp.br/api/v1/login', { email, password });
-            if (response.data.message) {
-                localStorage.setItem('token', response.data.message);
+            const response = await login({ email, password });
+            if (response.message) {
+                localStorage.setItem('token', response.message);
                 toast.success("Login successful!");
                 navigate("/jobs");
             } else {
