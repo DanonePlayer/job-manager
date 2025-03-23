@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getJobs } from "../services/jobService";
 import { logout } from "../services/authService";
+import "../assets/styles/jobs.css";
 
 const JobListPage = () => {
     const [jobs, setJobs] = useState([]);
@@ -35,18 +36,22 @@ const JobListPage = () => {
 
     return (
         <div className="job-list-page">
-            <h1>Vagas Disponíveis</h1>
-            <button onClick={handleLogout}>Logout</button>
-            <button onClick={() => navigate("/jobs/new")}>Add New Job</button>
-            <ul>
+            <header>
+                <h1 className="h1-joblist">Vagas Disponíveis</h1>
+                <button className="btn-logout" onClick={handleLogout}>Logout</button>
+            </header>
+            <div className="buttons-container">
+                <button className="btn-add-job" onClick={() => navigate("/jobs/new")}>Adicionar Nova Vaga</button>
+            </div>
+            <ul className="job-list">
                 {jobs && jobs.length > 0 ? (
                     jobs.map((job) => (
-                        <li key={job.id} onClick={() => navigate(`/jobs/${job.id}`)}>
+                        <li key={job.id} className="job-item" onClick={() => navigate(`/jobs/${job.id}`)}>
                             <h2>{job.role}</h2>
                             <p>{job.company}</p>
                             <p>{job.location}</p>
-                            <p>{job.remote ? "Remote" : "On-site"}</p>
-                            <p>{job.salary}</p>
+                            <p>{job.remote ? "Remote" : "Presencial"}</p>
+                            <p>{`R$ ${job.salary.toLocaleString('pt-BR')}`}</p>
                         </li>
                     ))
                 ) : (

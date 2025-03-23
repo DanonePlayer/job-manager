@@ -13,9 +13,10 @@ const JobFormPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ role, company, location, remote, link, salary });
 
     if (!role || !company || !location || !link || !salary) {
         setError('Todos os campos são obrigatórios!');
@@ -44,7 +45,7 @@ const JobFormPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Cadastrar Nova Vaga</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -57,7 +58,7 @@ const JobFormPage = () => {
         </label>
         <input type="text" placeholder="Link" value={link} onChange={(e) => setLink(e.target.value)} />
         <input type="number" placeholder="Salário" value={salary} onChange={(e) => setSalary(e.target.value)} />
-        <button type="submit" disabled={loading}>{loading ? 'Cadastrando...' : 'Cadastrar Vaga'}</button>
+        <button type="submit" className="btn-add-job" disabled={loading}>{loading ? 'Cadastrando...' : 'Cadastrar Vaga'}</button>
       </form>
     </div>
   );

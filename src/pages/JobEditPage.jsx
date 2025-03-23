@@ -68,7 +68,7 @@ const JobEditPage = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             <h2>Editar Vaga</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ const JobEditPage = () => {
                 </label>
                 <input type="text" name="link" placeholder="Link" value={jobData.link} onChange={handleChange} />
                 <input type="number" name="salary" placeholder="Salário" value={jobData.salary} onChange={handleChange} />
-                <button type="submit" disabled={loading}>{loading ? 'Salvando...' : 'Salvar Alterações'}</button>
+                <button type="submit" className="btn-add-job" disabled={loading}>{loading ? 'Salvando...' : 'Salvar Alterações'}</button>
             </form>
         </div>
     );

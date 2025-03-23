@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../services/authService";
+import "../assets/styles/login.css";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -27,11 +28,12 @@ const LoginPage = () => {
                 toast.success("Login successful!");
                 navigate("/jobs");
             } else {
+                console.error(response);
                 toast.error("Credenciais inválidas. Tente novamente.");
             }
         } catch (error) {
-            console.error("Erro ao fazer login:", error);
             toast.error(error.message);
+            setError(error.message);
         } finally {
             setLoading(false);
         }
@@ -43,7 +45,7 @@ const LoginPage = () => {
             <form onSubmit={handleLogin}>
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <button type="submit" disabled={loading}>{loading ? 'Entrando...' : 'Login'}</button>
+                <button type="submit" disabled={loading}> {loading && <div className="spinner"></div>}{loading ? 'Entrando...' : 'Login'}</button>
             </form>
         </div>
     );

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getJobDetails } from "../services/jobService";
 import { deleteJob } from "../services/jobService";
 import { toast } from "react-toastify";
+import "../assets/styles/jobs.css";
 
 const JobDetailPage = () => {
     const [job, setJob] = useState(null);
@@ -46,14 +47,14 @@ const JobDetailPage = () => {
             navigate("/jobs");
         }
         catch (error) {
-            console.error("Erro ao excluir a vaga:", error);
+            toast.error(error.message);
         }
     }
 
     if (!job) return <div>Loading...</div>;
 
     return (
-        <div className="job-detail-page">
+        <div className="container">
             <h1>{job.role}</h1>
             <p><strong>Nome da empresa:</strong> {job.company}</p>
             <p><strong>	Localização da vaga:</strong> {job.location}</p>
