@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { createJob } from '../services/jobService';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const JobFormPage = () => {
   const [role, setRole] = useState("");
@@ -20,40 +22,21 @@ const JobFormPage = () => {
         return;
     }
 
-    const jobData = {
-        role,
-        company,
-        location,
-        remote,
-        link,
-        salary: Number(salary) || 0,
-        };
+    setLoading(true);
+    setError(null);
 
         try{
-            setLoading(true);
-            setError(null);
             const token = localStorage.getItem('token');
-            
             if (!token) {
                 setError('Você precisa estar logado para cadastrar uma vaga.');
                 return;
             }
-
-            const response = await createJob(jobData, token);
-            if(response.message) {
-                alert('Vaga cadastrada com sucesso!');
-            }
-            
-            setRole("");
-            setCompany("");
-            setLocation("");
-            setRemote(false);
-            setLink("");
-            setSalary("");
-            setError(null);
+            await createJob({ role, company, location, remote, link, salary: Number(salary) }, token);
+            toast.success('Vaga cadastrada com sucesso!');
+            navigate('/jobs');
         } catch (error) {
-            console.error('Erro ao cadastrar vaga:', error);
-            setError(error.response?.data?.message || 'Erro ao cadastrar vaga. Tente novamente mais tarde.');
+          toast.error(error.message)
+          setError(error.message)
         }
         finally {
             setLoading(false);

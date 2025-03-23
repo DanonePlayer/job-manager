@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getJobs } from "../services/jobService";
+import { logout } from "../services/authService";
 
 const JobListPage = () => {
     const [jobs, setJobs] = useState([]);
@@ -17,14 +18,9 @@ const JobListPage = () => {
                     return;
                 }
                 const response = await getJobs(token);
-                if(Array.isArray(response.message)) {
-                    setJobs(response.message);
-                }
-                else {
-                    toast.error("Erro ao carregar as vagas. Tente novamente mais tarde.");
-                }
+                setJobs(response);
             } catch (error) {
-                toast.error("Erro ao carregar as vagas");
+                toast.error(error.message);
             }
         };
 
@@ -32,9 +28,9 @@ const JobListPage = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate("/");
+        logout();
         toast.success("Logout successful!");
+        navigate("/");
     };
 
     return (

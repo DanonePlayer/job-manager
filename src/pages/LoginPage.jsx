@@ -30,8 +30,8 @@ const LoginPage = () => {
                 toast.error("Credenciais inválidas. Tente novamente.");
             }
         } catch (error) {
-            console.error("Login error:", error);
-            toast.error(error.response?.data?.message || "Erro ao fazer login. Tente novamente.");
+            console.error("Erro ao fazer login:", error);
+            toast.error(error.message);
         } finally {
             setLoading(false);
         }
