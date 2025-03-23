@@ -21,10 +21,11 @@ const JobDetailPage = () => {
                 if (foundJob) {
                     setJob(foundJob);
                 } else {
+                    toast.error("Vaga não encontrada!");
                     navigate("/jobs");
                 }
             } catch (error) {
-                console.error("Erro ao carregar os detalhes da vaga:", error);
+                toast.error(error.message);
             }
         };
 
@@ -63,6 +64,11 @@ const JobDetailPage = () => {
             <button onClick={handleDelete} style={{backgroundColor: "red", color: "white", marginTop: "10px"}}>
                 Excluir Vaga
             </button>
+
+            <button onClick={() => navigate(`/jobs/edit/${jobId}`)} style={{backgroundColor: "blue", color: "white", marginRight: "10px"}}>
+                Editar Vaga
+            </button>
+
         </div>
         
     );
