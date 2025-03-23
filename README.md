@@ -21,13 +21,16 @@ Gerenciador de vagas de emprego, permitindo cadastro, listagem, edição e exclu
    ```sh
    git clone https://github.com/SEU_USUARIO/job-manager.git
    cd job-manager
-2. Instale as dependências:
 
+   
+2. Instale as dependências:
+   ```sh
    npm install
    npm install react-toastify
    npm install react-router-dom
 
 3. Inicie a aplicação localmente:
+   ```sh
    npm run dev
 
 4. Abra seu navegador e acesse: http://localhost:5173/
