@@ -62,15 +62,19 @@ const JobDetailPage = () => {
             <p><strong>	Localização da vaga:</strong> {job.location}</p>
             <p><strong>A Vaga é remota ?:</strong> {job.remote ? "Sim" : "Não"}</p>
             <p><strong>Salário oferecido:</strong> {`R$ ${job.salary.toLocaleString('pt-BR')}`}</p>
-            <a href={job.link} target="_blank" rel="noopener noreferrer">Link para candidatura ou mais informações</a>
+            <a href={job.link} target="_blank" rel="noopener noreferrer" className="job-detail-link">
+                Link para candidatura ou mais informações
+            </a>
             
-            <button onClick={handleDelete} style={{backgroundColor: "red", color: "white", marginTop: "10px"}}>
-                Excluir Vaga
-            </button>
+            <div className="button-container">
+                <button className="job-detail-btn-edit" onClick={() => navigate(`/jobs/edit/${jobId}`)}>
+                    Editar Vaga
+                </button>
 
-            <button onClick={() => navigate(`/jobs/edit/${jobId}`)} style={{backgroundColor: "blue", color: "white", marginRight: "10px"}}>
-                Editar Vaga
-            </button>
+                <button className="job-detail-btn-excl" onClick={handleDelete}>
+                    Excluir Vaga
+                </button>
+            </div>
 
         </div>
         

@@ -220,3 +220,55 @@ label {
       margin-top: 15px;
     }
   }
+
+  .job-detail-link {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.job-detail-link:hover {
+    background-color: #0056b3;
+}
+
+.job-detail-btn-excl{
+    display: inline-block;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.job-detail-btn-excl:hover {
+    background-color: #b30000;
+}
+
+.job-detail-btn-edit{
+    display: inline-block;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.job-detail-btn-edit:hover {
+    background-color: #0000b3;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
