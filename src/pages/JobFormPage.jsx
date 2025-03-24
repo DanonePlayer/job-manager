@@ -11,7 +11,6 @@ const JobFormPage = () => {
   const [remote, setRemote] = useState(false);
   const [link, setLink] = useState("");
   const [salary, setSalary] = useState("");
-  const [salaryRaw, setSalaryRaw] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +19,7 @@ const JobFormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!role || !company || !location || !link || !salaryRaw) {
+    if (!role || !company || !location || !link || !salary) {
         setError('Todos os campos são obrigatórios!');
         return;
     }
@@ -34,7 +33,7 @@ const JobFormPage = () => {
                 setError('Você precisa estar logado para cadastrar uma vaga.');
                 return;
             }
-            await createJob({ role, company, location, remote, link, salary: salaryRaw }, token);
+            await createJob({ role, company, location, remote, link, salary: Number(salary) }, token);
             toast.success('Vaga cadastrada com sucesso!');
             navigate('/jobs');
         } catch (error) {
@@ -44,22 +43,6 @@ const JobFormPage = () => {
         finally {
             setLoading(false);
         }
-  };
-
-
-  const formatCurrency = (value) => {
-    let numericValue = value.replace(/\D/g, "");
-    let formattedValue = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(numericValue / 100);
-    return { formatted: formattedValue, raw: parseInt(numericValue) };
-  };
-  
-  const handleSalaryChange = (e) => {
-    const { formatted, raw } = formatCurrency(e.target.value);
-    setSalary(formatted);
-    setSalaryRaw(raw);
   };
 
   return (
@@ -76,7 +59,7 @@ const JobFormPage = () => {
           Trabalho Remoto
         </label>
         <input type="text" placeholder="Link para candidatura ou mais informações" value={link} onChange={(e) => setLink(e.target.value)} />
-        <input type="text" placeholder="Salário" value={salary} onChange={handleSalaryChange} />
+        <input type="text" placeholder="Salário" value={salary} onChange={(e) => setSalary(e.target.value)} />
         <button type="submit" className="btn-add-job" disabled={loading}>{loading ? 'Cadastrando...' : 'Cadastrar Vaga'}</button>
       </form>
       <ToastContainer />
