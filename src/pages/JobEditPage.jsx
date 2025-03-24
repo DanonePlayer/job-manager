@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { getJobDetails, updateJob } from "../services/jobService";
 import Navbar from "../components/Navbar";
 import "../assets/styles/jobs.css";
@@ -45,9 +45,16 @@ const JobEditPage = () => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        
+        let newValue = value;
+
+        if(name === "salary" && value !== "") {
+            newValue = Number(value);
+        }
+        
         setJobData(prev => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value
+            [name]: type === "checkbox" ? checked : newValue
         }));
     };
 
@@ -65,6 +72,7 @@ const JobEditPage = () => {
             navigate(`/jobs/${jobId}`);
         } catch (error) {
             toast.error("Erro ao atualizar a vaga. Tente novamente.");
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -87,6 +95,7 @@ const JobEditPage = () => {
                 <input type="number" name="salary" placeholder="Salário" value={jobData.salary} onChange={handleChange} />
                 <button type="submit" className="btn-add-job" disabled={loading}>{loading ? 'Salvando...' : 'Salvar Alterações'}</button>
             </form>
+            <ToastContainer />
         </div>
     );
 };
