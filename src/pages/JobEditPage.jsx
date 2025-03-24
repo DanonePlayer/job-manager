@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getJobDetails, updateJob } from "../services/jobService";
+import Navbar from "../components/Navbar";
+import "../assets/styles/jobs.css";
 
 
 const JobEditPage = () => {
@@ -34,6 +36,7 @@ const JobEditPage = () => {
                     navigate("/jobs");
                 }
             } catch (error) {
+                console.error(error);
                 toast.error(error.message);
             }
         };
@@ -69,6 +72,7 @@ const JobEditPage = () => {
 
     return (
         <div className="container">
+            <Navbar />
             <h2>Editar Vaga</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>

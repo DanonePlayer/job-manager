@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getJobs } from "../services/jobService";
 import { logout } from "../services/authService";
+import JobCard from "../components/JobCard";
+import Navbar from "../components/Navbar";
 import "../assets/styles/jobs.css";
 
 const JobListPage = () => {
@@ -28,32 +30,15 @@ const JobListPage = () => {
         fetchJobs();
     }, []);
 
-    const handleLogout = () => {
-        logout();
-        toast.success("Logout successful!");
-        navigate("/");
-    };
-
     return (
         <div className="job-list-page">
+            <Navbar />
             <header>
                 <h1 className="h1-joblist">Vagas Disponíveis</h1>
-                <button className="btn-logout" onClick={handleLogout}>Logout</button>
             </header>
-            <div className="buttons-container">
-                <button className="btn-add-job" onClick={() => navigate("/jobs/new")}>Adicionar Nova Vaga</button>
-            </div>
             <ul className="job-list">
-                {jobs && jobs.length > 0 ? (
-                    jobs.map((job) => (
-                        <li key={job.id} className="job-item" onClick={() => navigate(`/jobs/${job.id}`)}>
-                            <h2>{job.role}</h2>
-                            <p>{job.company}</p>
-                            <p>{job.location}</p>
-                            <p>{job.remote ? "Remote" : "Presencial"}</p>
-                            <p>{`R$ ${job.salary.toLocaleString('pt-BR')}`}</p>
-                        </li>
-                    ))
+                { jobs && jobs.length > 0 ? (
+                    jobs.map((job) => <JobCard key={job.id} job={job} />)
                 ) : (
                     <p>Não há vagas disponíveis no momento.</p>
                 )}
