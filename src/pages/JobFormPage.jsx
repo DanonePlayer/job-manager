@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { createJob } from '../services/jobService';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const JobFormPage = () => {
   const [role, setRole] = useState("");
@@ -46,6 +47,7 @@ const JobFormPage = () => {
 
   return (
     <div className="container">
+      <Navbar />
       <h2>Cadastrar Nova Vaga</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>

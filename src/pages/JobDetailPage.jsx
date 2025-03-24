@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getJobDetails } from "../services/jobService";
 import { deleteJob } from "../services/jobService";
 import { toast } from "react-toastify";
+import Navbar from "../components/Navbar";
 import "../assets/styles/jobs.css";
 
 const JobDetailPage = () => {
@@ -55,13 +56,14 @@ const JobDetailPage = () => {
 
     return (
         <div className="container">
+            <Navbar />
             <h1>{job.role}</h1>
             <p><strong>Nome da empresa:</strong> {job.company}</p>
             <p><strong>	Localização da vaga:</strong> {job.location}</p>
-            <p><strong>A Vaga é remota ?</strong> {job.remote ? "Sim" : "Não"}</p>
-            <p><strong>Salário oferecido:</strong> {job.salary}</p>
+            <p><strong>A Vaga é remota ?:</strong> {job.remote ? "Sim" : "Não"}</p>
+            <p><strong>Salário oferecido:</strong> {`R$ ${job.salary.toLocaleString('pt-BR')}`}</p>
             <a href={job.link} target="_blank" rel="noopener noreferrer">Link para candidatura ou mais informações</a>
-
+            
             <button onClick={handleDelete} style={{backgroundColor: "red", color: "white", marginTop: "10px"}}>
                 Excluir Vaga
             </button>
