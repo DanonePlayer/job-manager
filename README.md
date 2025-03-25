@@ -19,7 +19,7 @@ Gerenciador de vagas de emprego, permitindo cadastro, listagem, edição e exclu
 ## 📦 Instalação
 1. Clone o repositório:  
    ```sh
-   git clone https://github.com/SEU_USUARIO/job-manager.git
+   git clone https://github.com/DanonePlayer/job-manager.git
    cd job-manager
 
    
